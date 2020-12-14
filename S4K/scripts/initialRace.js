@@ -2,6 +2,9 @@
 
 import * as THREE from '../../build/three.module.js';
 
+import { OrbitControls } from '../../examples/jsm/controls/OrbitControls.js';
+
+import { PLYLoader } from "../../examples/jsm/loaders/PLYLoader.js";
 import { ShadowMesh } from '../../examples/jsm/objects/ShadowMesh.js';
 
 let camera, scene, renderer;
@@ -10,6 +13,8 @@ let mesh, geometry, material, clock;
 let torus, torusShadow;
 let torus2, torus2Shadow;
 let torus3, torus3Shadow;
+
+let ducky1;
 
 const sunLight = new THREE.DirectionalLight( 'rgb(255,255,255)', 1 );
 let useDirectionalLight = true;
@@ -62,6 +67,11 @@ init();
 animate();
 
 function init() {
+
+    renderer = new THREE.WebGLRenderer( { antialias: true } );
+    renderer.setPixelRatio( window.devicePixelRatio );
+    renderer.setSize( window.innerWidth, window.innerHeight );
+    document.body.appendChild( renderer.domElement );
 
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
     camera.position.set( 0, 10, 100 );
@@ -164,12 +174,11 @@ function init() {
     scene.add( cube1 );
 
     
-    renderer = new THREE.WebGLRenderer( { antialias: true } );
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    document.body.appendChild( renderer.domElement );
 
     window.addEventListener( 'resize', onWindowResize, false );
+    loadDucky1();
+
+
 
 }
 
@@ -244,3 +253,30 @@ function render() {
     renderer.render( scene, camera );
 
 }
+
+function loadDucky1() {
+    const texture = new THREE.TextureLoader().load( "./media/golfball.jpg" );
+    var loader = new PLYLoader();
+    loader.load(
+      "./models/Ducky1.ply",
+      function (geometry) {
+        geometry.computeVertexNormals();
+        var material = new THREE.MeshBasicMaterial( { map: texture } );
+        ducky1 = new THREE.Mesh(geometry, material);
+
+        //default position
+        ducky1.position.y = 50;
+        ducky1.position.x=-50;
+
+
+
+        ducky1.castShadow = true;
+        ducky1.receiveShadow = true;
+
+        scene.add(ducky1);
+        //objects.push(ducky1);
+
+
+      }
+    );
+  }
