@@ -7,7 +7,7 @@ import { OrbitControls } from '../../examples/jsm/controls/OrbitControls.js';
 import { PLYLoader } from "../../examples/jsm/loaders/PLYLoader.js";
 import { ShadowMesh } from '../../examples/jsm/objects/ShadowMesh.js';
 
-let camera, scene, renderer;
+let camera, scene, renderer, controls;
 
 let mesh, geometry, material, clock;
 let torus, torusShadow;
@@ -58,6 +58,8 @@ function init() {
 
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
     camera.position.set( 0, 10, 60 );
+
+    controls = new OrbitControls( camera, renderer.domElement );
 
     clock = new THREE.Clock();
 
