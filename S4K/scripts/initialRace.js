@@ -2,7 +2,10 @@
 
 import * as THREE from '../../build/three.module.js';
 
+import { OrbitControls } from '../../examples/jsm/controls/OrbitControls.js';
 
+import { PLYLoader } from "../../examples/jsm/loaders/PLYLoader.js";
+import { ShadowMesh } from '../../examples/jsm/objects/ShadowMesh.js';
 
 let camera, scene, renderer;
 
@@ -10,6 +13,8 @@ let mesh, geometry, material, clock;
 let torus, torusShadow;
 let torus2, torus2Shadow;
 let torus3, torus3Shadow;
+
+let ducky1;
 
 const sunLight = new THREE.DirectionalLight( 'rgb(255,255,255)', 1 );
 let useDirectionalLight = true;
@@ -141,11 +146,7 @@ function init() {
 
     // torus3Shadow = new ShadowMesh( torus3 );
     // scene.add( torus3Shadow );
-    
-    renderer = new THREE.WebGLRenderer( { antialias: true } );
-    renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    document.body.appendChild( renderer.domElement );
+
 
     window.addEventListener( 'resize', onWindowResize, false );
     loadDucky1();
