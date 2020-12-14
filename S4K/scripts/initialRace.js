@@ -29,22 +29,42 @@ let velocity_init = 3.5;
 let dx = 0.0;
 const TWO_PI = Math.PI * 2;
 const radius = 8, tube = 4;
-const xoff = -50, yoff = 7.5, zoff = -15;
+const xoff = -100, yoff = 7.5, zoff = -15;
 const dens1 = 3.0, dens2 = 2.0, dens3 = 1.0;
 const cd1 = 1.0, cd2 = 1.0, cd3 = 1.0;
 const area1 = 1.0, area2 = 1.0, area3 = 1.0;
-const vol1 = 1.0, vol2 = 1.0, vol3 = 1.0;
-const mass1 = dens1 * vol1; 
-const mass2 = dens2 * vol2; 
-const mass3 = dens3 * vol3;
-const alp1 = 0.5 * dens1 * cd1 * area1 / mass1;
-const alp2 = 0.5 * dens2 * cd2 * area2 / mass2;
-const alp3 = 0.5 * dens3 * cd3 * area3 / mass3;
-let E0 = 50;
-let v1_0 = Math.sqrt(E0/mass1);
-let v2_0 = Math.sqrt(E0/mass2);
-let v3_0 = Math.sqrt(E0/mass3);
+const vol1 = 0.5, vol2 = 0.5, vol3 = 0.5;
+let E0 = 750;
 
+let geom1, mat1, cube1;
+let geom_finishline1, mat_finishline1, cube_finishline1, yfinishline1 = 45, xfinishline = 175;
+let geom_finishline2, cube_finishline2, yfinishline2 = 20;
+let geom_finishline3, cube_finishline3;
+
+function compute_mass(density, volume)
+{
+    return density * volume;
+}
+const mass1 = compute_mass(dens1, vol1); 
+const mass2 = compute_mass(dens2, vol2);
+const mass3 = compute_mass(dens3, vol3);
+
+function compute_initial_velocity(energy, mass)
+{
+    return Math.sqrt(energy/mass);
+}
+const v1_0 = compute_initial_velocity(E0, mass1);
+const v2_0 = compute_initial_velocity(E0, mass2);
+const v3_0 = compute_initial_velocity(E0, mass3);
+
+function compute_drag_factor(CD, density, area, mass)
+{
+    return 0.5 * density * CD * area / mass;
+}
+
+const alp1 = compute_drag_factor(cd1, dens1, area1, mass1);
+const alp2 = compute_drag_factor(cd2, dens2, area2, mass2);
+const alp3 = compute_drag_factor(cd3, dens3, area3, mass3);
 
 init();
 animate();
@@ -57,7 +77,7 @@ function init() {
     document.body.appendChild( renderer.domElement );
 
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
-    camera.position.set( 0, 10, 60 );
+    camera.position.set( 0, 10, 100 );
 
     clock = new THREE.Clock();
 
@@ -147,6 +167,39 @@ function init() {
     // torus3Shadow = new ShadowMesh( torus3 );
     // scene.add( torus3Shadow );
 
+    geom1 = new THREE.BoxGeometry( 2, 4, 50 );
+    mat1 = new THREE.MeshStandardMaterial( { color: 'rgb(101,21,0)' } );
+    cube1 = new THREE.Mesh( geom1, mat1 );
+    cube1.position.x = xoff - 5;
+    cube1.position.y = 2.5;
+    cube1.position.z = zoff;
+
+    scene.add( cube1 );
+
+    mat_finishline1 = new THREE.MeshStandardMaterial( { color: 'rgb(0,255,0)' } );
+
+    geom_finishline1 = new THREE.BoxGeometry( 4, 2, 50 );
+    cube_finishline1 = new THREE.Mesh( geom_finishline1, mat_finishline1 );
+    cube_finishline1.position.x = xoff + xfinishline;
+    cube_finishline1.position.y = yfinishline1;
+    cube_finishline1.position.z = zoff;
+
+    geom_finishline2 = new THREE.CylinderGeometry( 2, 2, 50 );
+    cube_finishline2 = new THREE.Mesh( geom_finishline2, mat_finishline1 );
+    cube_finishline2.position.x = xoff + xfinishline;
+    cube_finishline2.position.y = yfinishline2;
+    cube_finishline2.position.z = zoff - 25;
+
+    geom_finishline3 = new THREE.CylinderGeometry( 2, 2, 50 );
+    cube_finishline3 = new THREE.Mesh( geom_finishline3, mat_finishline1 );
+    cube_finishline3.position.x = xoff + xfinishline;
+    cube_finishline3.position.y = yfinishline2;
+    cube_finishline3.position.z = zoff + 25;
+
+    scene.add( cube_finishline1 );
+    scene.add( cube_finishline2 );
+    scene.add( cube_finishline3 );
+    
 
     window.addEventListener( 'resize', onWindowResize, false );
     loadDucky1();
@@ -173,6 +226,7 @@ function animate() {
     requestAnimationFrame( animate );
 
     frameTime = clock.getDelta();
+    const currentTime = clock.getElapsedTime();
 
     horizontalAngle += 0.5 * frameTime;
     verticalAngle += 1.5 * frameTime;
@@ -180,21 +234,31 @@ function animate() {
         verticalAngle -= TWO_PI;
     if ( horizontalAngle > TWO_PI )
         horizontalAngle -= TWO_PI;
-
-    torus.rotation.x -= 0.0 * frameTime;
-    torus.rotation.y -= 0.0 * frameTime;
-    torus.position.x += velocity_init * Math.log(1 + alp1 * v1_0 * frameTime);// Math.cos( horizontalAngle ) * 4;
+    
+    if (currentTime < 2)
+    {
+        cube1.position.x -= 10 * frameTime;
+        cube1.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+    }
+    else if (currentTime >= 2 && currentTime < 2.5)
+    {
+        cube1.position.x += (currentTime - 1.25) * (currentTime - 1.25);
+        cube1.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+    }
+    else
+    {
+        cube1.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+        torus.position.x = xoff + v1_0 * Math.log(1 + alp1 * v1_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
+        torus2.position.x = xoff + v2_0 * Math.log(1 + alp2 * v2_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
+        torus3.position.x = xoff + v3_0 * Math.log(1 + alp3 * v3_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
+    }
     torus.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
-
-    torus2.rotation.x -= 0.0 * frameTime;
-    torus2.rotation.y -= 0.0 * frameTime;
-    torus2.position.x += velocity_init * Math.log(1 + alp2 * v2_0 * frameTime);// Math.cos( horizontalAngle ) * 4;
     torus2.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
-
-    torus3.rotation.x -= 0.0 * frameTime;
-    torus3.rotation.y -= 0.0 * frameTime;
-    torus3.position.x += velocity_init * Math.log(1 + alp3 * v3_0 * frameTime);// Math.cos( horizontalAngle ) * 4;
     torus3.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+    cube_finishline1.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline1;
+    cube_finishline2.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline2;
+    cube_finishline3.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline2;
+
 
     render();
 
