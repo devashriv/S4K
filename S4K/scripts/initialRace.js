@@ -29,14 +29,17 @@ let velocity_init = 3.5;
 let dx = 0.0;
 const TWO_PI = Math.PI * 2;
 const radius = 8, tube = 4;
-const xoff = -50, yoff = 7.5, zoff = -15;
+const xoff = -100, yoff = 7.5, zoff = -15;
 const dens1 = 3.0, dens2 = 2.0, dens3 = 1.0;
 const cd1 = 1.0, cd2 = 1.0, cd3 = 1.0;
 const area1 = 1.0, area2 = 1.0, area3 = 1.0;
 const vol1 = 0.5, vol2 = 0.5, vol3 = 0.5;
-let E0 = 500;
+let E0 = 750;
 
 let geom1, mat1, cube1;
+let geom_finishline1, mat_finishline1, cube_finishline1, yfinishline1 = 45, xfinishline = 175;
+let geom_finishline2, cube_finishline2, yfinishline2 = 20;
+let geom_finishline3, cube_finishline3;
 
 function compute_mass(density, volume)
 {
@@ -173,6 +176,29 @@ function init() {
 
     scene.add( cube1 );
 
+    mat_finishline1 = new THREE.MeshStandardMaterial( { color: 'rgb(0,255,0)' } );
+
+    geom_finishline1 = new THREE.BoxGeometry( 4, 2, 50 );
+    cube_finishline1 = new THREE.Mesh( geom_finishline1, mat_finishline1 );
+    cube_finishline1.position.x = xoff + xfinishline;
+    cube_finishline1.position.y = yfinishline1;
+    cube_finishline1.position.z = zoff;
+
+    geom_finishline2 = new THREE.CylinderGeometry( 2, 2, 50 );
+    cube_finishline2 = new THREE.Mesh( geom_finishline2, mat_finishline1 );
+    cube_finishline2.position.x = xoff + xfinishline;
+    cube_finishline2.position.y = yfinishline2;
+    cube_finishline2.position.z = zoff - 25;
+
+    geom_finishline3 = new THREE.CylinderGeometry( 2, 2, 50 );
+    cube_finishline3 = new THREE.Mesh( geom_finishline3, mat_finishline1 );
+    cube_finishline3.position.x = xoff + xfinishline;
+    cube_finishline3.position.y = yfinishline2;
+    cube_finishline3.position.z = zoff + 25;
+
+    scene.add( cube_finishline1 );
+    scene.add( cube_finishline2 );
+    scene.add( cube_finishline3 );
     
 
     window.addEventListener( 'resize', onWindowResize, false );
@@ -216,7 +242,7 @@ function animate() {
     }
     else if (currentTime >= 2 && currentTime < 2.5)
     {
-        cube1.position.x += (currentTime - 1.5) * (currentTime - 1.5);
+        cube1.position.x += (currentTime - 1.25) * (currentTime - 1.25);
         cube1.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
     }
     else
@@ -229,6 +255,9 @@ function animate() {
     torus.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
     torus2.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
     torus3.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+    cube_finishline1.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline1;
+    cube_finishline2.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline2;
+    cube_finishline3.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline2;
 
 
     render();
