@@ -23,10 +23,10 @@ let frameTime = 0;
 let velocity_init = 3.5;
 const TWO_PI = Math.PI * 2;
 const xoff = -50, yoff = 7.5, zoff = -15;
-const dens1 = 750, dens2 = 1250.0, dens3 = 900.0;
-const cd1 = 1.0, cd2 = 1.0, cd3 = 1.0;
-const area1 = 0.000870, area2 = 0.000870, area3 = 0.000870;
-const vol1 = 0.000025, vol2 = 0.000025, vol3 = 0.000025;
+const dens1 = 750.0, dens2 = 750.0, dens3 = 750.0;
+const cd1 = 1.0, cd2 = 1.25, cd3 = 0.95;
+const area1 = 0.000870, area2 = 0.000910, area3 = 0.000830;
+const vol1 = 0.000025, vol2 = 0.000028, vol3 = 0.000022;
 let E0 = 75;
 
 let geom1, mat1, cube1;
@@ -195,14 +195,14 @@ function loadDucky1() {
   }
 
 function loadDucky2() {
-    const texture = new THREE.TextureLoader().load( "./media/crate.gif" );
+    const texture = new THREE.TextureLoader().load( "./media/golfball.jpg" );
     var loader = new PLYLoader();
     loader.load(
-      "./models/Duck-1.ply",
+      "./models/Duck-3.ply",
       function (geometry) {
         //geometry.computeVertexNormals();
         var material = new THREE.MeshStandardMaterial({
-            color: 0x00ff00,
+            color: 0xffff00,
             flatShading: true,
           });
         ducky2 = new THREE.Mesh(geometry, material);
@@ -220,14 +220,14 @@ function loadDucky2() {
   }
 
 function loadDucky3() {
-    const texture = new THREE.TextureLoader().load( "./media/disturb.jpg" );
+    const texture = new THREE.TextureLoader().load( "./media/golfball.jpg" );
     var loader = new PLYLoader();
     loader.load(
-      "./models/Duck-1.ply",
+      "./models/Duck-2.ply",
       function (geometry) {
         geometry.computeVertexNormals();
         var material = new THREE.MeshStandardMaterial({
-            color: 0xff0000,
+            color: 0xffff00,
             flatShading: true,
           });
         ducky3 = new THREE.Mesh(geometry, material);
