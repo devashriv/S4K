@@ -2,49 +2,82 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.container {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-}
-
-.container img {
-  width: 100%;
-  height: auto;
-}
-
-.container .btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  background-color: #555;
-  color: white;
-  font-size: 16px;
-  padding: 12px 24px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.container .btn:hover {
-  background-color: black;
-}
-</style>
+<link type="text/css" rel="stylesheet" href="s4k.css">
+<h2>Interactive learning</h2>
 </head>
 <body>
-  <script type="module" src="scripts/main.js"></script>
+  <div id="container">
 
-<h2>This is screen 1</h2>
-<p>Collect materials</p>
-
-<div class="container">
+    <div id="leftThing">
+      Click on different duckies to learn more about them
+    </div>
   
-  <a href="screen2.html"><button class="btn">Next</button></a>
-</div>
+    <div id="content">
+    </div>
+  
+    <div id="rightThing">
+      <a href="screen2.html"><button class="btn">Next</button></a>
+    </div>
+  
+  </div>
+  <script type="module" src="scripts/infoNavigation.js"></script>
+
+  <table style="width:100%; height:100%"  border="1">
+    <tr>
+      <th></th>
+      <th>Wood</th>
+      <th>Rubber</th>
+      <th>Plastic</th>
+      <th colspan="4" width=50%></th>
+    </tr>
+    <tr>
+      <th>Shape 1</th>
+  
+      <td><a href="javascript: showInfo(0,0);">
+        <img src="../S4K/media/Duck1_woodBrown.png" width="150" />
+      </a>
+    </td>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck1_rubberYellow.png" width="150"/>
+      </a></td>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck1_plasticPink.png" width="150" />
+      </a></td>
+    </tr>
+    <tr>
+      <th>Shape 2</th>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck2_woodBrown.png" width="150" />
+      </a></td>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck2_rubberYellow.png" width="150"/>
+      </a></td>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck2_plasticPink.png" width="150" />
+      </a></td>
+    </tr>
+    <tr>
+      <th>Shape 3</th>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck3_woodBrown.png" width="150"/>
+      </a></td>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck3_rubberYellow.png" width="150"/>
+      </a></td>
+  
+      <td><a href="javascript: ChangeImage2();">
+        <img src="../S4K/media/Duck3_plasticPink.png" width="150"/>
+      </a></td>
+    </tr>
+  </table> 
+
 
 </body>
 </html>
