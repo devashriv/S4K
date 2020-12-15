@@ -7,10 +7,10 @@
     position: absolute;
     transform: translate(-50%, -50%);
     -ms-transform: translate(-50%, -50%);
-    background-color: #555;
+    background-color: rgb(58, 145, 0);
     color: white;
     font-size: 16px;
-    padding: 12px 24px;
+    padding: 1px 30px;
     border: none;
     cursor: pointer;
     border-radius: 5px;
@@ -35,3 +35,11 @@
   #rightThing {
     width: 15%;
   }
+
+  h1 { font-family: "Bubblegum Sans"; font-size: 30px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 26.4px; } 
+  h2 { font-family: "Bubblegum Sans"; font-size: 18px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } 
+
+  h3 { font-family: "Bubblegum Sans"; font-size: 14px; font-style: normal; font-variant: normal; font-weight: 700; line-height: 15.4px; } 
+  p { font-family: "Bubblegum Sans"; font-size: 20px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 20px; } 
+  blockquote { font-family: "Bubblegum Sans"; font-size: 21px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 30px; } 
+  pre { font-family: "Bubblegum Sans"; font-size: 13px; font-style: normal; font-variant: normal; font-weight: 400; line-height: 18.5714px; }

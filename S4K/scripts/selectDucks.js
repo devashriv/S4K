@@ -4,6 +4,7 @@ function ChangeImage11() {
   if (conf == true)
   {
     document.getElementById("P1P").src = "../S4K/media/check.png";
+    document.getElementById("R1Y").height = "200";
     document.getElementById("P1P").alt = "check"
   }
   if (checkhowmany() == 3)
@@ -18,6 +19,7 @@ function ChangeImage12() {
   if (conf == true)
   {
     document.getElementById("R1Y").src = "../S4K/media/check.png";
+    document.getElementById("R1Y").height = "200";
     document.getElementById("R1Y").alt = "check"
   }
   if (checkhowmany() == 3)
