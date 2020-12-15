@@ -1,14 +1,14 @@
 let materials=["Wooden", "Rubber", "Plastic"];
 let shapes=["Short neck", "Open wing", "Long neck"];
 let shapeInformation = [
-    "a duck with this shape offers more air and water resistance than one of the other options due to its large frontal area",
-    "a duck with this shape offers the most air and water resistance as it has the largest frontal area",
-    "a duck with this shape offers least air and water resistance as it has the least frontal area (most aerodynamically efficient shape)"
+    "A duck with this shape offers more air and water resistance than one of the other options due to its large frontal area",
+    "A duck with this shape offers the most air and water resistance as it has the largest frontal area",
+    "A duck with this shape offers least air and water resistance as it has the least frontal area (most aerodynamically efficient shape)"
 ]
 let matlInformation = [
-    "this is the least dense of the materials and thus for the same volume of the duck, building it out of wood will make it lighter than the other options",
-    "this is the densest material here and thus a duck made of rubber will be the heaviest option",
-    "this is the second least dense of the materials and building a duck of plastic will make it heavier than wood but lighter than rubber"
+    "This is the least dense of the materials and thus for the same volume of the duck, building it out of wood will make it lighter than the other options",
+    "This is the densest material here and thus a duck made of rubber will be the heaviest option",
+    "This is the second least dense of the materials and building a duck of plastic will make it heavier than wood but lighter than rubber"
 ]
 let videoPath=[
     "../S4K/media/Duck-1.mp4",
