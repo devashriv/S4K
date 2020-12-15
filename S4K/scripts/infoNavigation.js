@@ -2,8 +2,8 @@ let materials=["Wooden", "Rubber", "Plastic"];
 let shapes=["Short neck", "Open wing", "Long neck"];
 let shapeInformation = [
     "This shape produces more air and water resistance than other ducky shapes because it has large area (it is Big!).  Less area means less resistance!",
-    "This shape produces more air and water resistance than other ducky shapes because it has large area (it is Big!).  Less area means less resistance! ",
-    "A duck with this shape offers least air and water resistance as it has the least frontal area (most aerodynamically efficient shape)"
+    "This shape produces most air and water resistance than others because it has largest area (it is the  Biggest!).  Less area means less resistance!  ",
+    "This shape produces least air and water resistance than other ducky shapes because it has least area.  Less area means less resistance! "
 ]
 let matlInformation = [
     "Wood is least dense of material of the three options. ",
