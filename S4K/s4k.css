@@ -27,10 +27,10 @@
     display: flex;
   }
   #leftThing {
-    width: 25%;
+    width: 60%;
   }
   #content {
-    width: 60%;
+    width: 25%;
   }
   #rightThing {
     width: 15%;

@@ -8,7 +8,7 @@ import { PLYLoader } from "../../examples/jsm/loaders/PLYLoader.js";
 
 let camera, scene, renderer, controls;
 
-let mesh, geometry, material, clock;
+let mesh, geometryP, material, clock;
 
 let ducky1, ducky2, ducky3;
 
@@ -16,11 +16,10 @@ const sunLight = new THREE.DirectionalLight( 'rgb(255,255,255)', 1 );
 let lightSphere, lightHolder;
 const lightPosition4D = new THREE.Vector4();
 
-const worldWidth = 128, worldDepth = 128;
+const worldWidth = 500, worldDepth = 500;
 let verticalAngle = 0;
 let horizontalAngle = 0;
 let frameTime = 0;
-let velocity_init = 3.5;
 const TWO_PI = Math.PI * 2;
 const xoff = -50, yoff = 7.5, zoff = -15;
 const dens1 = 750, dens2 = 1250.0, dens3 = 900.0;
@@ -70,7 +69,8 @@ function init() {
     document.body.appendChild( renderer.domElement );
 
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
-    camera.position.set( 0, 10, 300 );
+    camera.position.set( 200, 200, 500 );
+    //camera.lookAt(0,0,-1);
 
     controls = new OrbitControls( camera, renderer.domElement );
 
@@ -106,10 +106,10 @@ function init() {
     scene.add( lightHolder );
     lightHolder.visible = false;
 
-    geometry = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth - 1 );
-    geometry.rotateX( - Math.PI / 2 );
+    geometryP = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth - 1 );
+    geometryP.rotateX( - Math.PI / 2 );
 
-    const positionP = geometry.attributes.position;
+    const positionP = geometryP.attributes.position;
     positionP.usage = THREE.DynamicDrawUsage;
 
     for ( let i = 0; i < positionP.count; i ++ ) {
@@ -125,7 +125,7 @@ function init() {
 
     material = new THREE.MeshBasicMaterial( { color: 0x0044ff, map: texture } );
 
-    mesh = new THREE.Mesh( geometry, material );
+    mesh = new THREE.Mesh( geometryP, material );
     scene.add( mesh );
 
     
@@ -177,7 +177,7 @@ function loadDucky1() {
       function (geometry) {
         geometry.computeVertexNormals();
         var material = new THREE.MeshStandardMaterial({
-            color: 0xffff00,
+            color: 0x654321,
             flatShading: true,
           });
         ducky1 = new THREE.Mesh(geometry, material);
@@ -202,7 +202,7 @@ function loadDucky2() {
       function (geometry) {
         //geometry.computeVertexNormals();
         var material = new THREE.MeshStandardMaterial({
-            color: 0x00ff00,
+            color: 0xffff00,
             flatShading: true,
           });
         ducky2 = new THREE.Mesh(geometry, material);
@@ -227,7 +227,7 @@ function loadDucky3() {
       function (geometry) {
         geometry.computeVertexNormals();
         var material = new THREE.MeshStandardMaterial({
-            color: 0xff0000,
+            color: 0xFF1493,
             flatShading: true,
           });
         ducky3 = new THREE.Mesh(geometry, material);
@@ -305,15 +305,15 @@ function render() {
     const delta = clock.getDelta();
     const time = clock.getElapsedTime() * 10;
 
-    const position = geometry.attributes.position;
+    const positionP = geometryP.attributes.position;
 
-    for ( let i = 0; i < position.count; i ++ ) 
+    for ( let i = 0; i < positionP.count; i ++ ) 
     {
-        const y = 2 * Math.sin( i / 5 + ( time + i ) / 7 );
-        position.setY( i, y );
+        const y = 10 * Math.sin( i / 5 + ( time + i ) / 7 );
+        positionP.setY( i, y );
     }
 
-    position.needsUpdate = true;
+    positionP.needsUpdate = true;
 
     renderer.render( scene, camera );
 

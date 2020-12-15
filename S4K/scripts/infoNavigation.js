@@ -25,9 +25,3 @@ function showInfo(matl, shape)
     document.getElementById("simVid").src= videoPath[shape];
     document.getElementById("simVid").style.visibility = "visible";
 }
-
-function getInfo(matl,shape)
-{
-
-    return materials[matl]+" "+shapes[shape] ;
-}
