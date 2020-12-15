@@ -5,19 +5,14 @@ import * as THREE from '../../build/three.module.js';
 import { OrbitControls } from '../../examples/jsm/controls/OrbitControls.js';
 
 import { PLYLoader } from "../../examples/jsm/loaders/PLYLoader.js";
-import { ShadowMesh } from '../../examples/jsm/objects/ShadowMesh.js';
 
-let camera, scene, renderer;
+let camera, scene, renderer, controls;
 
 let mesh, geometry, material, clock;
-let torus, torusShadow;
-let torus2, torus2Shadow;
-let torus3, torus3Shadow;
 
-let ducky1;
+let ducky1, ducky2, ducky3;
 
 const sunLight = new THREE.DirectionalLight( 'rgb(255,255,255)', 1 );
-let useDirectionalLight = true;
 let lightSphere, lightHolder;
 const lightPosition4D = new THREE.Vector4();
 
@@ -26,10 +21,8 @@ let verticalAngle = 0;
 let horizontalAngle = 0;
 let frameTime = 0;
 let velocity_init = 3.5;
-let dx = 0.0;
 const TWO_PI = Math.PI * 2;
-const radius = 8, tube = 4;
-const xoff = -100, yoff = 7.5, zoff = -15;
+const xoff = -50, yoff = 7.5, zoff = -15;
 const dens1 = 3.0, dens2 = 2.0, dens3 = 1.0;
 const cd1 = 1.0, cd2 = 1.0, cd3 = 1.0;
 const area1 = 1.0, area2 = 1.0, area3 = 1.0;
@@ -37,7 +30,7 @@ const vol1 = 0.5, vol2 = 0.5, vol3 = 0.5;
 let E0 = 750;
 
 let geom1, mat1, cube1;
-let geom_finishline1, mat_finishline1, cube_finishline1, yfinishline1 = 45, xfinishline = 175;
+let geom_finishline1, mat_finishline1, cube_finishline1, yfinishline1 = 45, xfinishline = 500;
 let geom_finishline2, cube_finishline2, yfinishline2 = 20;
 let geom_finishline3, cube_finishline3;
 
@@ -77,7 +70,9 @@ function init() {
     document.body.appendChild( renderer.domElement );
 
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
-    camera.position.set( 0, 10, 100 );
+    camera.position.set( 0, 10, 300 );
+
+    controls = new OrbitControls( camera, renderer.domElement );
 
     clock = new THREE.Clock();
 
@@ -85,10 +80,12 @@ function init() {
     scene.background = new THREE.Color( 0xaaccff );
     // scene.fog = new THREE.FogExp2( 0xaaccff, 0.0007 );
 
+
+
     sunLight.position.set( 5, 7, - 1 );
     sunLight.lookAt( scene.position );
     scene.add( sunLight );
-
+//
     lightPosition4D.x = sunLight.position.x;
     lightPosition4D.y = sunLight.position.y;
     lightPosition4D.z = sunLight.position.z;
@@ -102,7 +99,7 @@ function init() {
     lightSphere = new THREE.Mesh( lightSphereGeometry, lightSphereMaterial );
     scene.add( lightSphere );
     lightSphere.visible = false;
-
+//
     const lightHolderGeometry = new THREE.CylinderBufferGeometry( 0.05, 0.05, 0.13 );
     const lightHolderMaterial = new THREE.MeshBasicMaterial( { color: 'rgb(75,75,75)' } );
     lightHolder = new THREE.Mesh( lightHolderGeometry, lightHolderMaterial );
@@ -112,13 +109,13 @@ function init() {
     geometry = new THREE.PlaneBufferGeometry( 20000, 20000, worldWidth - 1, worldDepth - 1 );
     geometry.rotateX( - Math.PI / 2 );
 
-    const position = geometry.attributes.position;
-    position.usage = THREE.DynamicDrawUsage;
+    const positionP = geometry.attributes.position;
+    positionP.usage = THREE.DynamicDrawUsage;
 
-    for ( let i = 0; i < position.count; i ++ ) {
+    for ( let i = 0; i < positionP.count; i ++ ) {
 
         const y = 35 * Math.sin( i / 2 );
-        position.setY( i, y );
+        positionP.setY( i, y );
 
     }
 
@@ -131,41 +128,7 @@ function init() {
     mesh = new THREE.Mesh( geometry, material );
     scene.add( mesh );
 
-    // MAGENTA TORUS and TORUS' SHADOW
-    const torusGeometry = new THREE.TorusBufferGeometry( radius, tube, 10, 16, TWO_PI );
-    const torusMaterial = new THREE.MeshPhongMaterial( { color: 'rgb(255,0,255)', emissive: 0x200020 } );
-    torus = new THREE.Mesh( torusGeometry, torusMaterial );
-    torus.position.x = xoff;
-    torus.position.y = yoff;
-    torus.position.z = zoff - 50;
-    scene.add( torus );
-
-    //torusShadow = new ShadowMesh( torus );
-    //scene.add( torusShadow );
-
-    // MAGENTA TORUS and TORUS' SHADOW
-    const torus2Geometry = new THREE.TorusBufferGeometry( radius, tube, 10, 16, TWO_PI );
-    const torus2Material = new THREE.MeshPhongMaterial( { color: 'rgb(255,255,0)', emissive: 0x200020 } );
-    torus2 = new THREE.Mesh( torus2Geometry, torus2Material );
-    torus2.position.x = xoff;
-    torus2.position.y = yoff;
-    torus2.position.z = zoff - 25;
-    scene.add( torus2 );
-
-    // torus2Shadow = new ShadowMesh( torus2 );
-    // scene.add( torus2Shadow );
-
-    // MAGENTA TORUS and TORUS' SHADOW
-    const torus3Geometry = new THREE.TorusBufferGeometry( radius, tube, 10, 16, TWO_PI );
-    const torus3Material = new THREE.MeshPhongMaterial( { color: 'rgb(0,255,255)', emissive: 0x200020 } );
-    torus3 = new THREE.Mesh( torus3Geometry, torus3Material );
-    torus3.position.x = xoff;
-    torus3.position.y = yoff;
-    torus3.position.z = zoff - 0;
-    scene.add( torus3 );
-
-    // torus3Shadow = new ShadowMesh( torus3 );
-    // scene.add( torus3Shadow );
+    
 
     geom1 = new THREE.BoxGeometry( 2, 4, 50 );
     mat1 = new THREE.MeshStandardMaterial( { color: 'rgb(101,21,0)' } );
@@ -178,7 +141,7 @@ function init() {
 
     mat_finishline1 = new THREE.MeshStandardMaterial( { color: 'rgb(0,255,0)' } );
 
-    geom_finishline1 = new THREE.BoxGeometry( 4, 2, 50 );
+    geom_finishline1 = new THREE.BoxGeometry( 4, 2, 200 );
     cube_finishline1 = new THREE.Mesh( geom_finishline1, mat_finishline1 );
     cube_finishline1.position.x = xoff + xfinishline;
     cube_finishline1.position.y = yfinishline1;
@@ -188,13 +151,13 @@ function init() {
     cube_finishline2 = new THREE.Mesh( geom_finishline2, mat_finishline1 );
     cube_finishline2.position.x = xoff + xfinishline;
     cube_finishline2.position.y = yfinishline2;
-    cube_finishline2.position.z = zoff - 25;
+    cube_finishline2.position.z = zoff - 100;
 
     geom_finishline3 = new THREE.CylinderGeometry( 2, 2, 50 );
     cube_finishline3 = new THREE.Mesh( geom_finishline3, mat_finishline1 );
     cube_finishline3.position.x = xoff + xfinishline;
     cube_finishline3.position.y = yfinishline2;
-    cube_finishline3.position.z = zoff + 25;
+    cube_finishline3.position.z = zoff + 100;
 
     scene.add( cube_finishline1 );
     scene.add( cube_finishline2 );
@@ -203,10 +166,83 @@ function init() {
 
     window.addEventListener( 'resize', onWindowResize, false );
     loadDucky1();
-
-
-
+    loadDucky2();
+    loadDucky3();
 }
+function loadDucky1() {
+    const texture = new THREE.TextureLoader().load( "./media/golfball.jpg" );
+    var loader = new PLYLoader();
+    loader.load(
+      "./models/Duck-1.ply",
+      function (geometry) {
+        geometry.computeVertexNormals();
+        var material = new THREE.MeshStandardMaterial({
+            color: 0xffff00,
+            flatShading: true,
+          });
+        ducky1 = new THREE.Mesh(geometry, material);
+
+        //default position
+        ducky1.position.x = xoff;
+        ducky1.position.y = yoff;
+        ducky1.position.z = zoff + 50;
+        ducky1.castShadow = true;
+        ducky1.receiveShadow = true;
+
+        scene.add(ducky1);
+      }
+    );
+  }
+
+function loadDucky2() {
+    const texture = new THREE.TextureLoader().load( "./media/crate.gif" );
+    var loader = new PLYLoader();
+    loader.load(
+      "./models/Duck-2.ply",
+      function (geometry) {
+        //geometry.computeVertexNormals();
+        var material = new THREE.MeshStandardMaterial({
+            color: 0x00ff00,
+            flatShading: true,
+          });
+        ducky2 = new THREE.Mesh(geometry, material);
+
+        //default position
+        ducky2.position.x = xoff;
+        ducky2.position.y = yoff;
+        ducky2.position.z = zoff - 50;
+        ducky2.castShadow = true;
+        ducky2.receiveShadow = true;
+
+        scene.add(ducky2);
+      }
+    );
+  }
+
+function loadDucky3() {
+    const texture = new THREE.TextureLoader().load( "./media/disturb.jpg" );
+    var loader = new PLYLoader();
+    loader.load(
+      "./models/Duck-3.ply",
+      function (geometry) {
+        geometry.computeVertexNormals();
+        var material = new THREE.MeshStandardMaterial({
+            color: 0xff0000,
+            flatShading: true,
+          });
+        ducky3 = new THREE.Mesh(geometry, material);
+
+        //default position
+        ducky3.position.x = xoff;
+        ducky3.position.y = yoff;
+        ducky3.position.z = zoff - 0;
+        ducky3.castShadow = true;
+        ducky3.receiveShadow = true;
+
+        scene.add(ducky3);
+      }
+    );
+  }
 
 function onWindowResize() {
 
@@ -248,13 +284,13 @@ function animate() {
     else
     {
         cube1.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
-        torus.position.x = xoff + v1_0 * Math.log(1 + alp1 * v1_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
-        torus2.position.x = xoff + v2_0 * Math.log(1 + alp2 * v2_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
-        torus3.position.x = xoff + v3_0 * Math.log(1 + alp3 * v3_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
+        ducky1.position.x = xoff + v1_0 * Math.log(1 + alp1 * v1_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
+        ducky2.position.x = xoff + v2_0 * Math.log(1 + alp2 * v2_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
+        ducky3.position.x = xoff + v3_0 * Math.log(1 + alp3 * v3_0 * (currentTime-2.5));// Math.cos( horizontalAngle ) * 4;
     }
-    torus.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
-    torus2.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
-    torus3.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+    ducky1.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+    ducky2.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
+    ducky3.position.y = Math.cos( verticalAngle ) * 1.5 + 2;
     cube_finishline1.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline1;
     cube_finishline2.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline2;
     cube_finishline3.position.y = Math.cos( verticalAngle ) * 1.5 + yfinishline2;
@@ -283,29 +319,3 @@ function render() {
 
 }
 
-function loadDucky1() {
-    const texture = new THREE.TextureLoader().load( "./media/golfball.jpg" );
-    var loader = new PLYLoader();
-    loader.load(
-      "./models/Ducky1.ply",
-      function (geometry) {
-        geometry.computeVertexNormals();
-        var material = new THREE.MeshBasicMaterial( { map: texture } );
-        ducky1 = new THREE.Mesh(geometry, material);
-
-        //default position
-        ducky1.position.y = 50;
-        ducky1.position.x=-50;
-
-
-
-        ducky1.castShadow = true;
-        ducky1.receiveShadow = true;
-
-        scene.add(ducky1);
-        //objects.push(ducky1);
-
-
-      }
-    );
-  }
