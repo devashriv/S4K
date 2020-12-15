@@ -1,0 +1,54 @@
+/* Group 1 */
+.group1 {
+position: absolute;
+width: 345.73px;
+height: 181.4px;
+left: 547px;
+top: 667.57px;
+
+transform: rotate(-0.76deg);
+
+}
+/* Rectangle 1 */
+.rect1{
+position: absolute;
+width: 345.73px;
+height: 177.49px;
+left: 547.05px;
+top: 671.48px;
+
+background: #2F9200;
+transform: rotate(-0.76deg);
+
+}
+/* Start */
+.btnText{
+position: absolute;
+width: 283px;
+height: 154px;
+left: 578.95px;
+top: 667.15px;
+
+font-family: Chela One;
+font-style: normal;
+font-weight: normal;
+font-size: 144px;
+line-height: 169px;
+
+color: #2F9200;
+
+border: 5px solid #FFFFFF;
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+transform: rotate(-0.76deg);
+}
+
+.center{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centerTable{
+    margin-left: auto;
+    margin-right: auto;
+}
