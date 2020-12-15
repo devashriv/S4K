@@ -30,7 +30,7 @@ const vol1 = 0.5, vol2 = 0.5, vol3 = 0.5;
 let E0 = 750;
 
 let geom1, mat1, cube1;
-let geom_finishline1, mat_finishline1, cube_finishline1, yfinishline1 = 45, xfinishline = 175;
+let geom_finishline1, mat_finishline1, cube_finishline1, yfinishline1 = 45, xfinishline = 500;
 let geom_finishline2, cube_finishline2, yfinishline2 = 20;
 let geom_finishline3, cube_finishline3;
 
@@ -141,7 +141,7 @@ function init() {
 
     mat_finishline1 = new THREE.MeshStandardMaterial( { color: 'rgb(0,255,0)' } );
 
-    geom_finishline1 = new THREE.BoxGeometry( 4, 2, 50 );
+    geom_finishline1 = new THREE.BoxGeometry( 4, 2, 200 );
     cube_finishline1 = new THREE.Mesh( geom_finishline1, mat_finishline1 );
     cube_finishline1.position.x = xoff + xfinishline;
     cube_finishline1.position.y = yfinishline1;
@@ -151,13 +151,13 @@ function init() {
     cube_finishline2 = new THREE.Mesh( geom_finishline2, mat_finishline1 );
     cube_finishline2.position.x = xoff + xfinishline;
     cube_finishline2.position.y = yfinishline2;
-    cube_finishline2.position.z = zoff - 25;
+    cube_finishline2.position.z = zoff - 100;
 
     geom_finishline3 = new THREE.CylinderGeometry( 2, 2, 50 );
     cube_finishline3 = new THREE.Mesh( geom_finishline3, mat_finishline1 );
     cube_finishline3.position.x = xoff + xfinishline;
     cube_finishline3.position.y = yfinishline2;
-    cube_finishline3.position.z = zoff + 25;
+    cube_finishline3.position.z = zoff + 100;
 
     scene.add( cube_finishline1 );
     scene.add( cube_finishline2 );
