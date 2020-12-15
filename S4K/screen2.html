@@ -2,101 +2,82 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.container {
-  position: relative;
-  width: 100%;
-  max-width: 400px;
-}
-
-.container img {
-  width: 100%;
-  height: auto;
-}
-
-.container .btn {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  background-color: #555;
-  color: white;
-  font-size: 16px;
-  padding: 12px 24px;
-  border: none;
-  cursor: pointer;
-  border-radius: 5px;
-  text-align: center;
-}
-
-.container .btn:hover {
-  background-color: black;
-}
-</style>
+<link type="text/css" rel="stylesheet" href="s4k.css">
+<h2>Select Duckies to race</h2>
 </head>
 <body>
-  <script type="module" src="scripts/main.js"></script>
-  <script src="scripts/main.js"></script>
-<h2>This is screen 2</h2>
-<p>Design your ducky</p>
-<table style="width:100%">
+<div id="container">
+
+  <div id="leftThing">
+    Click on 2 or more duckies to race them!
+  </div>
+
+  <div id="content">
+  </div>
+
+  <div id="rightThing">
+    <a href="screen3.html"><button id="buttonpage" class="btn" style="visibility: hidden;">Next</button></a>
+  </div>
+
+</div>
+<script src="scripts/selectDucks.js"></script>
+
+<table style="width:100%; height:100%">
   <tr>
     <th></th>
-    <th>Plastic</th>
-    <th>Rubber</th>
     <th>Wood</th>
+    <th>Rubber</th>
+    <th>Plastic</th>
   </tr>
   <tr>
-    <th>Shape 1</th>
-    <td><a href="javascript: ChangeImage11();">
-      <img src="../S4K/media/Duck1_plasticPink.png" alt="P1P" id="P1P"/>
+    <th>Short neck</th>
+
+    <td><a href="javascript: ChangeImage13();">
+      <img width=200 src="../S4K/media/Duck1_woodBrown.png" alt="W1B" id="W1B"/>
     </a></td>
 
     <td><a href="javascript: ChangeImage12();">
-      <img src="../S4K/media/Duck1_rubberYellow.png" alt="R1Y" id="R1Y"/>
+      <img width=200 src="../S4K/media/Duck1_rubberYellow.png" alt="R1Y" id="R1Y"/>
     </a></td>
 
-    <td><a href="javascript: ChangeImage13();">
-      <img src="../S4K/media/Duck1_woodBrown.png" alt="W1B" id="W1B"/>
-    </a></td>
-  </tr>
-  <tr>
-    <th>Shape 2</th>
-
-    <td><a href="javascript: ChangeImage21();">
-      <img src="../S4K/media/Duck2_plasticPink.png" alt="P2P" id="P2P"/>
-    </a></td>
-
-    <td><a href="javascript: ChangeImage22();">
-      <img src="../S4K/media/Duck2_rubberYellow.png" alt="R2Y" id="R2Y"/>
-    </a></td>
-
-    <td><a href="javascript: ChangeImage23();">
-      <img src="../S4K/media/Duck2_woodBrown.png" alt="W2B" id="W2B"/>
+    <td><a href="javascript: ChangeImage11();">
+      <img width=200 src="../S4K/media/Duck1_plasticPink.png" alt="P1P" id="P1P"/>
     </a></td>
   </tr>
-  <tr>
-    <th>Shape 3</th>
 
-    <td><a href="javascript: ChangeImage31();">
-      <img src="../S4K/media/Duck3_plasticPink.png" alt="P3P" id="P3P"/>
+  <tr>
+    <th>Open wing</th>
+
+    <td><a href="javascript: ChangeImage33();">
+      <img width=200 src="../S4K/media/Duck3_woodBrown.png" alt="W3B" id="W3B"/>
     </a></td>
 
     <td><a href="javascript: ChangeImage32();">
-      <img src="../S4K/media/Duck3_rubberYellow.png" alt="R3Y" id="R3Y"/>
+      <img width=200 src="../S4K/media/Duck3_rubberYellow.png" alt="R3Y" id="R3Y"/>
     </a></td>
 
-    <td><a href="javascript: ChangeImage33();">
-      <img src="../S4K/media/Duck3_woodBrown.png" alt="W3B" id="W3B"/>
+    <td><a href="javascript: ChangeImage31();">
+      <img width=200 src="../S4K/media/Duck3_plasticPink.png" alt="P3P" id="P3P"/>
     </a></td>
   </tr>
-</table> 
 
-<div class="container">
-  
-  <a href="screen3.html"><button style="visibility:hidden;" id="buttonpage" class="btn">Next</button></a>
-</div>
+  <tr>
+    <th>Long neck</th>
+
+    <td><a href="javascript: ChangeImage23();">
+      <img width=200 src="../S4K/media/Duck2_woodBrown.png" alt="W2B" id="W2B"/>
+    </a></td>
+
+    <td><a href="javascript: ChangeImage22();">
+      <img width=200 src="../S4K/media/Duck2_rubberYellow.png" alt="R2Y" id="R2Y"/>
+    </a></td>
+
+    <td><a href="javascript: ChangeImage21();">
+      <img width=200 src="../S4K/media/Duck2_plasticPink.png" alt="P2P" id="P2P"/>
+    </a></td>
+  </tr>
+
+</table> 
 
 </body>
 </html>
