@@ -20,7 +20,7 @@
     </div>
   
   </div>
-  <script type="module" src="scripts/infoNavigation.js"></script>
+  <script src="scripts/infoNavigation.js"></script>
 
   <table style="width:100%; height:100%"  border="1">
     <tr>
@@ -30,11 +30,14 @@
       <th>Plastic</th>
       <th rowspan="4" width=60%>
       <div id="infoSpace">
-        <h2></h2>
+        <h2 id="itemTitle">Wooden Short neck</h2>
+        <p id="shapeInfo">a duck with this shape offers more air and water resistance than one of the other options due to its large frontal area</p>
+        <p id="matlInfo">this is the least dense of the materials and thus for the same volume of the duck, building it out of wood will make it lighter than the other options</p>
+        <p id="genInfo">All the ducks start the race with the same amount of energy imparted to them by the “catapult”. Thus, the lightest duck will start with the largest initial velocity. Assuming no losses, this means elastic energy of the catapult gets converted to kinetic energy for the duck</p>
+      <img style="visibility:visible" id="eqtn" src="media/equation.jpg" />
       </div>
-      <div>
-        <video width="400" controls id="simVid">
-          <source src="../S4K/media/algoryx-test-malay.mp4" type="video/mp4">
+      <div >
+        <video style="visibility:visible" width="400" controls id="simVid" src =  "../S4K/media/Duck-1.mp4">
         </video>
       </div>
       
@@ -42,11 +45,10 @@
       </th>
     </tr>
     <tr>
-      <th>Shape 1</th>
+      <th>Short neck</th>
   
-      <td><a href="javascript: showInfo(0,0);">
-        <img src="../S4K/media/Duck1_woodBrown.png" width="200" />
-      </a>
+      <td>
+        <img src="../S4K/media/Duck1_woodBrown.png" width="200" onclick="showInfo(0,0);"/>
     </td>
   
       <td><a href="javascript: showInfo(1,0);">
@@ -58,33 +60,33 @@
       </a></td>
     </tr>
     <tr>
-      <th>Shape 2</th>
+      <th>Open wing</th>
   
       <td><a href="javascript: showInfo(0,1);">
-        <img src="../S4K/media/Duck2_woodBrown.png" width="200" />
+        <img src="../S4K/media/Duck3_woodBrown.png" width="200" />
       </a></td>
   
       <td><a href="javascript: showInfo(1,1);">
-        <img src="../S4K/media/Duck2_rubberYellow.png" width="200"/>
-      </a></td>
-  
-      <td><a href="javascript: showInfo(2,1);">
-        <img src="../S4K/media/Duck2_plasticPink.png" width="200" />
-      </a></td>
-    </tr>
-    <tr>
-      <th>Shape 3</th>
-  
-      <td><a href="javascript: showInfo(0,2);">
-        <img src="../S4K/media/Duck3_woodBrown.png" width="200"/>
-      </a></td>
-  
-      <td><a href="javascript: showInfo(1,2);">
         <img src="../S4K/media/Duck3_rubberYellow.png" width="200"/>
       </a></td>
   
+      <td><a href="javascript: showInfo(2,1);">
+        <img src="../S4K/media/Duck3_plasticPink.png" width="200" />
+      </a></td>
+    </tr>
+    <tr>
+      <th>Long neck</th>
+  
+      <td><a href="javascript: showInfo(0,2);">
+        <img src="../S4K/media/Duck2_woodBrown.png" width="200"/>
+      </a></td>
+  
+      <td><a href="javascript: showInfo(1,2);">
+        <img src="../S4K/media/Duck2_rubberYellow.png" width="200"/>
+      </a></td>
+  
       <td><a href="javascript: showInfo(2,2);">
-        <img src="../S4K/media/Duck3_plasticPink.png" width="200"/>
+        <img src="../S4K/media/Duck2_plasticPink.png" width="200"/>
       </a></td>
     </tr>
   </table> 
