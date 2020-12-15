@@ -70,7 +70,7 @@ function init() {
     document.body.appendChild( renderer.domElement );
 
     camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 20000 );
-    camera.position.set( 0, 10, 300 );
+    camera.position.set( 200, 200, 500 );
 
     controls = new OrbitControls( camera, renderer.domElement );
 
@@ -309,7 +309,7 @@ function render() {
 
     for ( let i = 0; i < position.count; i ++ ) 
     {
-        const y = 2 * Math.sin( i / 5 + ( time + i ) / 7 );
+        const y = 10 * Math.sin( i / 5 + ( time + i ) / 7 );
         position.setY( i, y );
     }
 
